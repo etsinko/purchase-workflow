@@ -14,7 +14,8 @@ class ProductTemplate(models.Model):
     @api.constrains('purchase_request', 'purchase_requisition')
     def _check_request_requisition(self):
         for product in self:
-            if product.purchase_request and product.purchase_requisition:
+            if product.purchase_request and \
+                    product.purchase_requisition == 'tenders':
                 raise ValidationError(_('Only one selection of Purchase '
                                         'Request or Call for Bids allowed'))
         return True
