@@ -17,12 +17,12 @@ class PurchaseRequestLine(models.Model):
     _inherit = "purchase.request.line"
 
     @api.multi
-    @api.depends('requisition_lines')
+    @api.depends('purchase_lines')
     def _compute_is_editable(self):
         super(PurchaseRequestLine, self)._compute_is_editable()
-        for rec in self:
-            if rec.requisition_lines:
-                rec.is_editable = False
+        self.filtered(lambda p: p in self and p.requisition_lines).update(
+            {'is_editable': False})
+
 
     @api.multi
     def _compute_requisition_qty(self):

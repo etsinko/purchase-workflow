@@ -3,10 +3,8 @@
 
 Purchase Request to Call for Bids
 =================================
-This module introduces the following features:
-
-* The possibility to create new Call for Bids or update existing Bids from
-  Purchase Request Lines.
+This module introduces the possibility to create or extend a Call for Bids
+from Purchase Request Lines.
 
 
 Usage
@@ -15,16 +13,13 @@ Usage
 * Go to the Purchase Request Lines from the menu entry 'Purchase Requests',
   and also from the 'Purchase' menu.
 
-* Select the lines that you wish to initiate the RFQ for, then go to 'More'
-  and press 'Create Purchase Bid'. You can choose to select an existing
-  Draft Bid or create a new one.
+* Select the lines that you wish to initiate the Call for Bids for, then go to
+  'More' and press 'Create Call for Bids'. You can choose to select an existing
+  Draft Call for Bids or create a new one.
 
-* In case that you chose to select an existing Bid, the application will search
-  for existing lines matching the request line, and will add the extra
-  quantity to them.
+* The application attempts to consolidate the lines in the Call for Bids in
+  in as few lines as possible, for the same product, UoM and analytic account.
 
-* In case that you create a new RFQ, the request lines will also be
-  consolidated into as few as possible lines in the RFQ.
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
@@ -50,7 +45,7 @@ Contributors
 
 * Jordi Ballester Alomar <jordi.ballester@eficent.com>
 * Jonathan Nemry <jonathan.nemry@acsone.eu>
-* Aaron Henriquez <ahenriquez@eficent.com>
+* Aarón Henríquez <ahenriquez@eficent.com>
 * Adrien Peiffer <adrien.peiffer@acsone.eu>
 
 

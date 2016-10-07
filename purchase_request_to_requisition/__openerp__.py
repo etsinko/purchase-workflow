@@ -6,6 +6,7 @@
     "name": "Purchase Request to Call for Bids",
     "version": "9.0.1.0.0",
     "author": "Eficent, "
+              "Acsone SA/NV"
               "Odoo Community Association (OCA)",
     "website": "www.eficent.com",
     "category": "Purchase Management",
