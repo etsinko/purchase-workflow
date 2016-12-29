@@ -6,9 +6,9 @@
     "name": "Purchase Request to Call for Bids",
     "version": "9.0.1.0.0",
     "author": "Eficent, "
-              "Acsone SA/NV"
+              "Acsone SA/NV,"
               "Odoo Community Association (OCA)",
-    "website": "www.eficent.com",
+    "website": "https://github.com/OCA/purchase-workflow",
     "category": "Purchase Management",
     "depends": [
         "purchase_request_procurement",

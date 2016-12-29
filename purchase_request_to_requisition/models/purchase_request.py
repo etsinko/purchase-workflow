@@ -4,14 +4,6 @@
 
 from openerp import _, api, exceptions, fields, models
 
-_PURCHASE_REQUISITION_STATE = [
-    ('none', 'No Bid'),
-    ('draft', 'Draft'),
-    ('in_progress', 'Confirmed'),
-    ('open', 'Bid Selection'),
-    ('done', 'PO Created'),
-    ('cancel', 'Cancelled')]
-
 
 class PurchaseRequestLine(models.Model):
     _inherit = "purchase.request.line"
@@ -22,7 +14,6 @@ class PurchaseRequestLine(models.Model):
         super(PurchaseRequestLine, self)._compute_is_editable()
         self.filtered(lambda p: p in self and p.requisition_lines).update(
             {'is_editable': False})
-
 
     @api.multi
     def _compute_requisition_qty(self):
@@ -37,7 +28,7 @@ class PurchaseRequestLine(models.Model):
     @api.depends('requisition_lines.requisition_id.state')
     def _compute_requisition_state(self):
         for rec in self:
-            temp_req_state = 'none'
+            temp_req_state = False
             if rec.requisition_lines:
                 if any([pr_line.requisition_id.state == 'done' for
                         pr_line in
@@ -65,8 +56,9 @@ class PurchaseRequestLine(models.Model):
                                    string='Quantity in a Bid')
     requisition_state = fields.Selection(
         compute='_compute_requisition_state', string="Bid Status",
-        type='selection', selection=_PURCHASE_REQUISITION_STATE, store=True,
-        default='none')
+        type='selection', selection=lambda self: self.env[
+            'purchase.requisition']._columns['state'].selection,
+        store=True)
 
     is_editable = fields.Boolean(compute='_compute_is_editable',
                                  string="Is editable")
