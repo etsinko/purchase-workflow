@@ -23,7 +23,6 @@ class PurchaseOrderLine(models.Model):
         key = ({'date_planned': line.date_planned},)
         return key
 
-
     @api.model
     def _first_picking_copy_vals(self, key, lines):
         """The data to be copied to new pickings is updated with data from the
