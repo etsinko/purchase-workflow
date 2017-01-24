@@ -25,18 +25,13 @@ from openerp.tools.translate import _
 class StockPicking(orm.Model):
     _inherit = "stock.picking"
 
-    def _purchase_request_picking_confirm_message_content(self, cr, uid,
-                                                          picking, request,
-                                                          request_dict,
-                                                          context=None):
+    def _purchase_request_picking_confirm_message_content(self, cr, uid, picking, request, request_dict, context=None):
         if not request_dict:
             request_dict = {}
-        title = _('Receipt confirmation %s for your Request %s') % (
-            picking.name, request.name)
+        title = _('Receipt confirmation %s for your Request %s') % (picking.name, request.name)
         message = '<h3>%s</h3>' % title
         message += _('The following requested items from Purchase Request %s '
-                     'have now been received in Incoming Shipment %s:') % (
-            request.name, picking.name)
+                     'have now been received in Incoming Shipment %s:') % (request.name, picking.name)
         message += '<ul>'
         for line in request_dict.values():
             message += _(
@@ -49,8 +44,7 @@ class StockPicking(orm.Model):
         return message
 
     def action_done(self, cr, uid, ids, context=None):
-        res = super(StockPicking, self).action_done(cr, uid, ids,
-                                                    context=context)
+        res = super(StockPicking, self).action_done(cr, uid, ids, context=context)
         request_obj = self.pool['purchase.request']
         for picking in self.browse(cr, uid, ids, context=context):
             requests_dict = {}
@@ -58,8 +52,7 @@ class StockPicking(orm.Model):
                 continue
             for move in picking.move_lines:
                 if move.purchase_line_id:
-                    for request_line in \
-                            move.purchase_line_id.purchase_request_lines:
+                    for request_line in move.purchase_line_id.purchase_request_lines:
                         request_id = request_line.request_id.id
                         if request_id not in requests_dict:
                             requests_dict[request_id] = {}
@@ -70,12 +63,8 @@ class StockPicking(orm.Model):
                         }
                         requests_dict[request_id][request_line.id] = data
             for request_id in requests_dict.keys():
-                request = request_obj.browse(cr, uid, request_id,
-                                             context=context)
-                message = \
-                    self._purchase_request_picking_confirm_message_content(
-                        cr, uid, picking, request,
-                        requests_dict[request_id], context=context)
-                request_obj.message_post(cr, uid, [request_id],
-                                         body=message)
+                request = request_obj.browse(cr, uid, request_id, context=context)
+                message = self._purchase_request_picking_confirm_message_content(cr, uid, picking, request,
+                                                                                 requests_dict[request_id], context=context)
+                request_obj.message_post(cr, uid, [request_id], body=message)
         return res

@@ -130,8 +130,6 @@
                     <group position="inside">
                         <filter string="Purchase Status"
                                 domain="[]" context="{'group_by':'purchase_state'}"/>
-                        <filter string="Request"
-                                domain="[]" context="{'group_by':'request_id'}"/>
                     </group>
             </field>
         </record>
